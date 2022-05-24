@@ -24,19 +24,46 @@
 
 export function createEmojiIter (text) {
   // write your code here
+  const arr = Array.from(text);
+  let pos = 0;
+
+  return {
+    next() {
+      while (pos < arr.length) {
+        const curr = arr[pos++];
+        if (curr.match(/\p{Emoji}/u) !== null) {
+          return { done: false, value: curr }
+        }
+      }
+      return { done: true }
+    }
+  }
 }
 
 export class EmojiIter {
   constructor (text) {
     this.chars = Array.from(text)
     // write your code here
+    this.pos = 0;
   }
 
   next () {
     // write your code here
+    while (this.pos < this.chars.length) {
+      const char = this.chars[this.pos++];
+      if (char.match(/\p{Emoji}/u) !== null) {
+        return { done: false, value: char }
+      }
+    }
+    return { done: true }
   }
 }
 
 export function * emojiIterGen (text) {
   // write your code here
+  for (const char of text) {
+    if (char.match(/\p{Emoji}/u)) {
+      yield char
+    }
+  }
 }

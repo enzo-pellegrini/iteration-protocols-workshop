@@ -34,7 +34,9 @@
  * @returns {[string]}
  */
 export default function champions (athletes) {
-  const wonAtLeast3Medals = []
-  // write your logic here
-  return wonAtLeast3Medals
+  return Object.entries(athletes)
+    .filter(([athleteName, medals]) =>
+      Object.values(medals)
+        .reduce((prev, curr) => prev + curr, 0) >= 3)
+    .map(([k, _]) => k)
 }

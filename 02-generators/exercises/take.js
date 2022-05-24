@@ -1,5 +1,4 @@
-/*
-  Exercise
+/* Exercise
   Let's implement a `take(n, iterable)` utility.
 
   This function receives a positive integer and an iterable.
@@ -37,4 +36,11 @@ export default function * take (n, iterable) {
   // `yield` correctly...
   //
   // Write your code here!
+  let count = 0;
+  for (const val of iterable) {
+    if (count++ >= n) {
+      break;
+    }
+    yield val
+  }
 }

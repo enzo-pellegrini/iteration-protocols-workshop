@@ -37,5 +37,18 @@
 export default function fizzBuzz (limit) {
   const seq = []
   // Write your implementation here. Fill `seq` based on limit
+  for (let i=1; i<=limit; i++) {
+    if (i % 15 === 0) {
+      seq.push('Fizz Buzz');
+    }
+    else if (i % 3 === 0) {
+      seq.push('Fizz')
+    }
+    else if (i % 5 === 0) { 
+      seq.push('Buzz')
+    }
+    else seq.push(String(i))
+  }
+
   return seq
 }

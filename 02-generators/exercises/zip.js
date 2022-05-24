@@ -38,8 +38,19 @@
  * @param {Iterable.<S>} iterable2
  * @returns {Iterable.<[T,S]}>}
  */
-export default function * zip (iterable1, iterable2) {
+export default function * zip (...iterables) {
   // write your code here
   // Tip: if you want to support generic iterable objects (like arrays)
   // you can get an iterator from them with `obj[Symbol.iterator]()`.
+  const iterators = iterables.map(i => i[Symbol.iterator]())
+
+  while (true) {
+    const nexts = iterators.map(i => i.next())
+    
+    if (nexts.some(n => n.done)) {
+      break
+    }
+
+    yield nexts.map(n => n.value)
+  }
 }
