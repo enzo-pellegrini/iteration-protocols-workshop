@@ -30,6 +30,25 @@
   You can use `axios` or `node-fetch`, both are already available in your `node_modules`!
 */
 
+import axios from "axios";
+
 export default function createCharactersPaginator () {
   // return an iterator that returns pages of characters
+  let nextUrl = "https://rickandmortyapi.com/api/character";
+
+  return {
+    async next() {
+      if (!nextUrl) {
+        return { done: true }
+      }
+      const res = await axios(nextUrl)
+      const data = res.data
+      nextUrl = data.info.next
+      const names = data.results.map(character => character.name)
+      return {
+        value: names,
+        done: false
+      }
+    }
+  }
 }

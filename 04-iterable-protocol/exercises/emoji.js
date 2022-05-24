@@ -23,6 +23,25 @@
 
 export function createEmojiIter (text) {
   // write your code here
+  const chars = Array.from(text);
+  
+  return {
+    [Symbol.iterator]() {
+      let pos = 0
+      
+      return {
+        next() {
+          while (pos < chars.length) {
+            const char = chars[pos++]
+            if (char.match(/\p{Emoji}/u)) {
+              return { value: char, done: false }
+            }
+          }
+          return { done: true }
+        }
+      }
+    }
+  }
 }
 
 export class EmojiIter {
@@ -31,11 +50,30 @@ export class EmojiIter {
     // write your code here
   }
 
-  next () {
-    // write your code here
+  // write your code here
+  [Symbol.iterator]() {
+    let pos = 0;
+    const chars = this.chars;
+
+    return {
+      next() {
+        while (pos < chars.length) {
+          const char = chars[pos++]
+          if (char.match(/\p{Emoji}/u)) {
+            return { value: char, done: false }
+          }
+        }
+        return { done: true }
+      }
+    }
   }
 }
 
 export function * emojiIterGen (text) {
   // write your code here
+  for (const char of text) {
+    if (char.match(/\p{Emoji}/u)) {
+      yield char
+    }
+  }
 }
